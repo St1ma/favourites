@@ -1,6 +1,7 @@
+import { Dispatch } from 'redux';
 import axios from 'axios';
 
-import { MOVIES_LIST } from '../../constants/api';
+import { MOVIES_LIST } from '@constants/api';
 
 import {
   FETCH_MOVIES_START,
@@ -10,11 +11,11 @@ import {
   CLEAR_MOVIES,
 } from './actionTypes';
 
-const fetchMovies = (search = '', page = 1) => (dispatch) => {
+const fetchMovies = (search = '', page = 1) => (dispatch: Dispatch): void => {
   dispatch({ type: FETCH_MOVIES_START });
   if (page === 1) dispatch({ type: CLEAR_MOVIES });
 
-  return axios.get(MOVIES_LIST(search, page))
+  axios.get(MOVIES_LIST(search, page))
     .then(({ data }) => {
       if (data.Response === 'True') {
         if (page === 1) {
@@ -43,6 +44,8 @@ const fetchMovies = (search = '', page = 1) => (dispatch) => {
     });
 };
 
-const clearMovies = () => (dispatch) => dispatch({ type: CLEAR_MOVIES });
+const clearMovies = () => (dispatch: Dispatch): void => {
+  dispatch({ type: CLEAR_MOVIES });
+};
 
 export { fetchMovies, clearMovies };

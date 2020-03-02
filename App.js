@@ -3,7 +3,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Provider } from 'react-redux';
@@ -55,12 +55,20 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
+    const theme = {
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: '#018786',
+      }
+    }
+
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+            <NavigationContainer ref={containerRef} initialState={initialNavigationState} theme={theme}>
               <Stack.Navigator>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Movies" component={MoviesScreen} />

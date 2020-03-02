@@ -11,7 +11,5 @@
 
 ## TODO
 
-1. dark theme
-2. tests
-3. TS / lint
-4. reselect
+1. tests
+2. reselect

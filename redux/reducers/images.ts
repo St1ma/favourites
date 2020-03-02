@@ -1,3 +1,5 @@
+import { WikiItem, ReduxState } from '@constants/interfaces';
+
 import {
   FETCH_WIKI_IMAGES_START,
   FETCH_WIKI_IMAGES_SUCCESS,
@@ -13,7 +15,15 @@ const initialState = {
   meta: { gaicontinue: '' },
 };
 
-export default function user(state = initialState, action) {
+interface Action {
+  data?: Array<WikiItem>;
+  type: string;
+  meta: ReduxState.images.meta;
+}
+
+type State = ReduxState.images;
+
+export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case FETCH_WIKI_IMAGES_START:
       return { ...state, finished: false, error: false };

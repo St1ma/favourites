@@ -1,13 +1,8 @@
 import * as React from 'react';
 
-import SearchList from '../../components/SearchList';
+import SearchList from '@components/SearchList';
 
-interface WikiItem {
-  name: string;
-  url: string;
-  user: string;
-  isFavourite?: boolean;
-}
+import { WikiItem } from '@constants/interfaces';
 
 interface Props {
   images: Array<WikiItem>;
@@ -21,25 +16,31 @@ interface Props {
 }
 
 export default class ImagesScreen extends React.PureComponent<Props> {
-  componentWillUnmount() {
-    this.props.clearImages();
+  componentWillUnmount(): void {
+    const { clearImages } = this.props;
+
+    clearImages();
   }
 
-  fetchNextPage = (search: string) => {
-    const { meta: { gaicontinue }, fetchImages } = this.props;
+  fetchNextPage = (search: string): void => {
+    const { meta: { gaicontinue }, fetchImages, fetchFinished } = this.props;
 
-    if (gaicontinue && this.props.fetchFinished) fetchImages(search, gaicontinue);
+    if (gaicontinue && fetchFinished) fetchImages(search, gaicontinue);
   }
 
-  render() {
+  render(): JSX.Element {
+    const {
+      images, fetchImages, fetchFinished, fetchError,
+    } = this.props;
+
     return (
       <SearchList
-        data={this.props.images}
+        data={images}
         type="wiki"
-        onFetchData={this.props.fetchImages}
+        onFetchData={fetchImages}
         onEndReached={this.fetchNextPage}
-        loading={!this.props.fetchFinished}
-        error={this.props.fetchError}
+        loading={!fetchFinished}
+        error={fetchError}
       />
     );
   }

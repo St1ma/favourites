@@ -1,24 +1,11 @@
 import * as React from 'react';
 import { View, Text, SectionList } from 'react-native';
 
-import ListItem from '../../components/ListItem';
+import ListItem from '@components/ListItem';
+
+import { WikiItem, MovieItem } from '@constants/interfaces';
 
 import styles from './styles';
-
-interface WikiItem {
-  name: string;
-  url: string;
-  user: string;
-  type: 'wiki';
-}
-
-interface MovieItem {
-  imdbID: string;
-  Poster: string;
-  Title: string;
-  Year: string;
-  type: 'movie';
-}
 
 interface Props {
   images: Array<WikiItem>;

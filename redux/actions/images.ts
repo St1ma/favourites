@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Dispatch } from 'redux';
 
-import { IMAGES_LIST } from '../../constants/api';
+import { IMAGES_LIST } from '@constants/api';
 
 import {
   FETCH_WIKI_IMAGES_START,
@@ -10,11 +11,11 @@ import {
   CLEAR_IMAGES,
 } from './actionTypes';
 
-const fetchImages = (search = '', gaicontinue = '') => (dispatch) => {
+const fetchImages = (search = '', gaicontinue = '') => (dispatch: Dispatch): void => {
   dispatch({ type: FETCH_WIKI_IMAGES_START });
   if (!gaicontinue) dispatch({ type: CLEAR_IMAGES });
 
-  return axios.get(IMAGES_LIST(search, gaicontinue))
+  axios.get(IMAGES_LIST(search, gaicontinue))
     .then(({ data }) => {
       if (gaicontinue) {
         dispatch({
@@ -35,6 +36,8 @@ const fetchImages = (search = '', gaicontinue = '') => (dispatch) => {
     });
 };
 
-const clearImages = () => (dispatch) => dispatch({ type: CLEAR_IMAGES });
+const clearImages = () => (dispatch: Dispatch): void => {
+  dispatch({ type: CLEAR_IMAGES });
+};
 
 export { fetchImages, clearImages };

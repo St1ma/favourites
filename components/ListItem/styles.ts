@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+export default ({ primary = 'black' }: { primary?: string } = {}): object => StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: 16,
@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
   link: {
     fontSize: 14,
-    color: 'blue',
+    color: primary,
     textDecorationLine: 'underline',
   },
 });

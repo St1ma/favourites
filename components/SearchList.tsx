@@ -1,6 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { View, TextInput, FlatList, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  View, TextInput, FlatList, StyleSheet, ActivityIndicator,
+} from 'react-native';
 import debounce from 'lodash/debounce';
+
+import { WikiItem, MovieItem } from '@constants/interfaces';
 
 import ListItem from './ListItem';
 import { EmptyPlaceholder, ErrorPlaceholder } from './Placeholder';
@@ -14,58 +18,41 @@ const styles = StyleSheet.create({
     margin: 16,
     height: 50,
     borderBottomWidth: 1,
-    borderBottomColor: 'grey',
+    borderBottomColor: '#C9C9C9',
     fontSize: 18,
-  }
+  },
 });
-
-interface WikiItem {
-  name: string;
-  url: string;
-  user: string;
-  isFavourite?: boolean;
-}
-
-interface MovieItem {
-  imdbID: string;
-  Poster: string;
-  Title: string;
-  Year: string;
-  isFavourite?: boolean;
-}
 
 interface Props {
   data: Array<WikiItem>|Array<MovieItem>;
   type: 'wiki'|'movie';
   onFetchData: Function;
   onEndReached: Function;
-  loading: Boolean;
-  error: Boolean;
+  loading: boolean;
+  error: boolean;
 }
 
-export default ({ data, type, onFetchData, onEndReached, loading, error }: Props) => {
+export default ({
+  data, type, onFetchData, onEndReached, loading, error,
+}: Props): JSX.Element => {
   const [search, setSearch] = useState('');
   const [initialEmpty, setInitialEmpty] = useState(true);
 
-  const toggleFavourite = (item: WikiItem) => {
-    if (item.isFavourite) {
-      this.props.removeFromFavourites(item, type);
-    } else {
-      this.props.addToFavourites(item, type)
-    }
-  }
-
   const fetchData = useCallback(debounce((newSearch: string) => {
-    if (newSearch.length >= 3) onFetchData(newSearch);
-    setInitialEmpty(false);
+    if (newSearch.length >= 3) {
+      onFetchData(newSearch);
+      setInitialEmpty(false);
+    }
   }, 600), []);
 
-  const handleChangeText = (newSearch: string) => {
+  const handleChangeText = (newSearch: string): void => {
     setSearch(newSearch);
     fetchData(newSearch);
-  }
+  };
 
-  const placeholder = error ? <ErrorPlaceholder onPress={() => fetchData(search)} /> : <EmptyPlaceholder initial={initialEmpty} />;
+  const placeholder = error
+    ? <ErrorPlaceholder onPress={(): void => fetchData(search)} />
+    : <EmptyPlaceholder initial={initialEmpty} />;
 
   return (
     <View style={styles.container}>
@@ -76,13 +63,14 @@ export default ({ data, type, onFetchData, onEndReached, loading, error }: Props
         style={styles.search}
       />
       <FlatList
-        keyExtractor={(item) => item.imdbID || item.name}
+        keyExtractor={(item): string => item.imdbID || item.name}
         data={data}
-        renderItem={({ item }) => <ListItem data={item} type={type} onPress={() => {}} />}
-        ListEmptyComponent={() => loading ? <ActivityIndicator /> : placeholder}
-        ListFooterComponent={() => loading && !!data.length && <ActivityIndicator />}
-        onEndReached={() => onEndReached(search)}
+        renderItem={({ item }): JSX.Element => <ListItem data={item} type={type} />}
+        ListEmptyComponent={(): JSX.Element => (loading ? <ActivityIndicator /> : placeholder)}
+        ListFooterComponent={(): JSX.Element => loading && !!data.length && <ActivityIndicator />}
+        onEndReached={(): void => onEndReached(search)}
+        keyboardShouldPersistTaps="always"
       />
     </View>
-  )
-}
+  );
+};

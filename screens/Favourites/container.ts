@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { removeFromFavourites } from '../../redux/actions/favourites';
+import { removeFromFavourites } from '@redux/actions/favourites';
 
 import FavouritesView from './component.tsx';
 

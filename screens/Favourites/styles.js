@@ -18,11 +18,12 @@ export default StyleSheet.create({
   },
   section: {
     flex: 1,
-    height: 40,
+    height: 50,
     backgroundColor: 'white',
     lineHeight: 40,
     fontSize: 18,
     paddingHorizontal: 16,
+    paddingTop: 6,
     color: 'grey',
   },
 });

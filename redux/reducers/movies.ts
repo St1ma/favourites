@@ -1,3 +1,5 @@
+import { MovieItem, ReduxState } from '@constants/interfaces';
+
 import {
   FETCH_MOVIES_START,
   FETCH_MOVIES_SUCCESS,
@@ -16,7 +18,15 @@ const initialState = {
   },
 };
 
-export default function users(state = initialState, action) {
+interface Action {
+  data?: Array<MovieItem>;
+  type: string;
+  meta: ReduxState.movies.meta;
+}
+
+type State = ReduxState.movies;
+
+export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case FETCH_MOVIES_START:
       return { ...state, finished: false, error: false };

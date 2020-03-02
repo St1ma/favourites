@@ -1,20 +1,8 @@
 import * as React from 'react';
-import {
-  Image, ActivityIndicator, View, Text, FlatList, TextInput,
-} from 'react-native';
 
-import ListItem from '../../components/ListItem';
-import SearchList from '../../components/SearchList';
+import SearchList from '@components/SearchList';
 
-import styles from './styles';
-
-interface MovieItem {
-  imdbID: string;
-  Poster: string;
-  Title: string;
-  Year: string;
-  isFavourite?: boolean;
-}
+import { MovieItem } from '@constants/iterfaces';
 
 interface Props {
   movies: Array<MovieItem>;
@@ -25,29 +13,38 @@ interface Props {
   meta: {
     total: number;
     page: number;
-  }
+  };
 }
 
 export default class MoviesScreen extends React.PureComponent<Props> {
-  fetchNextPage = (search: string) => {
-    const { meta: { total, page }, movies, fetchMovies } = this.props;
+  componentWillUnmount(): void {
+    const { clearMovies } = this.props;
 
-    if (total > movies.length && this.props.fetchFinished) fetchMovies(search, page + 1);
+    clearMovies();
   }
 
-  componentWillUnmount() {
-    this.props.clearMovies();
+  fetchNextPage = (search: string): void => {
+    const {
+      meta: { total, page }, movies, fetchMovies, fetchFinished,
+    } = this.props;
+
+    if (total > movies.length && fetchFinished) fetchMovies(search, page + 1);
   }
 
-  render() {
+
+  render(): JSX.Element {
+    const {
+      movies, fetchMovies, fetchFinished, fetchError,
+    } = this.props;
+
     return (
       <SearchList
-        data={this.props.movies}
+        data={movies}
         type="movie"
-        onFetchData={this.props.fetchMovies}
+        onFetchData={fetchMovies}
         onEndReached={this.fetchNextPage}
-        loading={!this.props.fetchFinished}
-        error={this.props.fetchError}
+        loading={!fetchFinished}
+        error={fetchError}
       />
     );
   }

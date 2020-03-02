@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
 
-import styles from './styles';
+import { WikiItem } from '@constants/interfaces';
 
-interface WikiItem {
-  name: string;
-  url: string;
-  user: string;
-}
+import stylesGenerator from './styles';
+
+const styles = stylesGenerator();
 
 export default ({ data }: { data: WikiItem }) => (
   <View style={styles.row}>

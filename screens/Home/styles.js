@@ -8,12 +8,22 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  subtitle: {
-    color: 'rgba(0,0,0,0.5)',
-    fontSize: 12,
-    lineHeight: 16,
+  background: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  placeholder: {
-    height: 24,
+  section: {
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    width: '60%',
+    justifyContent: 'center',
+    padding: 16,
+    borderRadius: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionLabel: {
+    marginLeft: 16,
+    fontSize: 24,
   },
 });

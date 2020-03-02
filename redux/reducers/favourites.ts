@@ -1,3 +1,5 @@
+import { WikiItem, MovieItem, ReduxState } from '@constants/interfaces';
+
 import {
   ADD_FAVOURITE,
   REMOVE_FAVOURITE,
@@ -7,7 +9,16 @@ const initialState = {
   favourites: [],
 };
 
-export default function user(state = initialState, action) {
+interface Action {
+  data?: Array<WikiItem>|Array<MovieItem>;
+  filterParam: string;
+  filterValue: string;
+  type: string;
+}
+
+type State = ReduxState.favourites;
+
+export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case ADD_FAVOURITE:
       return { ...state, favourites: [...state.favourites, action.data] };
