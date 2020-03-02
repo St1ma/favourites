@@ -14,7 +14,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   section: {
-    backgroundColor: 'rgba(255,255,255,0.85)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     width: '60%',
     justifyContent: 'center',
     padding: 16,
@@ -24,6 +24,7 @@ export default StyleSheet.create({
   },
   sectionLabel: {
     marginLeft: 16,
-    fontSize: 24,
+    fontSize: 22,
+    fontWeight: '600',
   },
 });

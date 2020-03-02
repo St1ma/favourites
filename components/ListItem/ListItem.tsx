@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
 
-import { removeFromFavourites, addToFavourites } from '@redux/actions/favourites';
+import { removeFromFavourites, addToFavourites } from '@store/actions/favourites';
 
 import { WikiItem, MovieItem } from '@constants/interfaces';
 
@@ -17,33 +17,35 @@ const styles = stylesGenerator();
 interface Props {
   data: WikiItem|MovieItem;
   type: 'wiki'|'movie',
-  addToFavourites: Function;
-  removeFromFavourites: Function;
+  addFav: Function;
+  removeFav: Function;
 }
 
-const ListItem = ({ data, type, addToFavourites, removeFromFavourites }: Props) => {
+const ListItem = ({
+  data, type, addFav, removeFav,
+}: Props): JSX.Element => {
   const listItems = {
     wiki: WikiListItem,
     movie: MovieListItem,
   };
-  const ListItem = listItems[type];
+  const Item = listItems[type];
 
-  const onPressIcon = () => {
+  const onPressIcon = (): void => {
     if (data.isFavourite) {
-      removeFromFavourites(data, type);
+      removeFav(data, type);
     } else {
-      addToFavourites(data, type);
+      addFav(data, type);
     }
-  }
+  };
 
   const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
-      <ListItem data={data} />
+      <Item data={data} />
 
       <Icon
-        name={data.isFavourite ? "star" : "star-outlined"}
+        name={data.isFavourite ? 'star' : 'star-outlined'}
         type="entypo"
         size={30}
         color={data.isFavourite ? colors.primary : colors.border}
@@ -53,14 +55,7 @@ const ListItem = ({ data, type, addToFavourites, removeFromFavourites }: Props) 
   );
 };
 
-const mapStateToProps = (state: object) => ({
-  movies: state.movies.movies.map((item: MovieItem) => ({ ...item, isFavourite: state.favourites.favourites.some((fav: MovieItem) => fav.imdbID === item.imdbID) })),
-  fetchFinished: state.movies.finished,
-  fetchError: state.movies.error,
-  meta: state.movies.meta,
-});
-
 export default connect(
   null,
-  { addToFavourites, removeFromFavourites },
+  { addFav: addToFavourites, removeFav: removeFromFavourites },
 )(ListItem);

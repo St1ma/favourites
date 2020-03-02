@@ -14,7 +14,7 @@ interface MovieItem {
   Year: string;
 }
 
-export default ({ data }: { data: MovieItem }) => {
+export default ({ data }: { data: MovieItem }): JSX.Element => {
   const styles = stylesGenerator(useTheme().colors);
 
   return (

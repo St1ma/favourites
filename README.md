@@ -13,3 +13,4 @@
 
 1. tests
 2. reselect
+3. full screen image preview

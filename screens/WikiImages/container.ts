@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchImages, clearImages } from '@redux/actions/images';
+import { fetchImages, clearImages } from '@store/actions/images';
 
 import { ReduxState, WikiItem } from '@constants/iterfaces';
 

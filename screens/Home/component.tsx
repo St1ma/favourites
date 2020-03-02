@@ -37,7 +37,7 @@ export default class HomeScreen extends React.PureComponent<Props> {
             onPress={(): void => this.handleItemPress(item)}
             style={styles.flex}
           >
-            <ImageBackground style={styles.background} source={item.image} resizeMode="contain">
+            <ImageBackground style={styles.background} source={item.image} resizeMode="cover">
               <View style={styles.section}>
                 <Text style={styles.sectionLabel}>{item.label}</Text>
               </View>

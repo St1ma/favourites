@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchMovies, clearMovies } from '@redux/actions/movies';
+import { fetchMovies, clearMovies } from '@store/actions/movies';
 
 import { ReduxState, MovieItem } from '@constants/iterfaces';
 

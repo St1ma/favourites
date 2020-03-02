@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "node_modules/.bin/jest --watchAll",
-    "lint": "./node_modules/.bin/eslint --fix --cache ./screens/ ./components/ ./redux/"
+    "lint": "./node_modules/.bin/eslint --fix --cache ./screens/ ./components/ ./store/"
   },
   "jest": {
     "projects": [

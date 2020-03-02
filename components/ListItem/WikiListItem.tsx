@@ -7,7 +7,7 @@ import stylesGenerator from './styles';
 
 const styles = stylesGenerator();
 
-export default ({ data }: { data: WikiItem }) => (
+export default ({ data }: { data: WikiItem }): JSX.Element => (
   <View style={styles.row}>
     <Image source={{ uri: data.url }} style={styles.image} resizeMode="contain" />
     <View style={styles.info}>

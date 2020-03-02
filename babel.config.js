@@ -4,11 +4,10 @@ module.exports = function(api) {
     presets: ['babel-preset-expo'],
     plugins: [
       ['module-resolver', {
-        root: ['./'],
         alias: {
           '@components': './components',
           '@constants': './constants',
-          '@redux': './redux',
+          '@store': './store',
           '@assets': './assets',
         },
       }],

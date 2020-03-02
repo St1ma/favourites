@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import styles from './styles';
 
 interface Props {
-  onPress: Function;
+  onPress: (event?: GestureResponderEvent) => void;
 }
 
-export default ({ onPress }: Props) => (
+export default ({ onPress }: Props): JSX.Element => (
   <View style={styles.container}>
     <Icon name="bug" type="entypo" size={40} color="rgba(0,0,0,0.5)" />
     <Text style={styles.title}>Oops!</Text>

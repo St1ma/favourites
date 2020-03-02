@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, SectionList } from 'react-native';
 
 import ListItem from '@components/ListItem';
+import { EmptyPlaceholder } from '@components/Placeholder'
 
 import { WikiItem, MovieItem } from '@constants/interfaces';
 
@@ -14,18 +15,34 @@ interface Props {
 }
 
 export default class HomeScreen extends React.PureComponent<Props> {
-  render() {
+  renderItem = ({ item }): JSX.Element => {
+    const { removeFromFavourites } = this.props;
+
+    return (
+      <ListItem
+        type={item.type}
+        data={{ ...item, isFavourite: true }}
+        onPress={(): void => removeFromFavourites(item, item.type)}
+      />
+    );
+  }
+
+  render(): JSX.Element {
+    const { images, movies } = this.props;
+
     return (
       <View style={styles.container}>
         <SectionList
           sections={[
-            this.props.images.length && { title: 'Wiki Images', data: this.props.images },
-            this.props.movies.length && { title: 'IMDb Movies', data: this.props.movies }
+            images.length && { title: 'Wiki Images', data: images },
+            movies.length && { title: 'IMDb Movies', data: movies },
           ].filter(Boolean)}
-          keyExtractor={(item) => item.imdbID || item.name}
-          ListEmptyComponent={() => <Text>Please add smth to favourites</Text>}
-          renderItem={({ item }) => <ListItem type={item.type} data={{ ...item, isFavourite: true }} onPress={() => this.props.removeFromFavourites(item, item.type)} />}
-          renderSectionHeader={({ section: { title } }) =><Text style={styles.section}>{title}</Text>}
+          keyExtractor={(item): string => item.imdbID || item.name}
+          ListEmptyComponent={(): JSX.Element => <EmptyPlaceholder label="Your favourite list is empty now" initial />}
+          renderItem={this.renderItem}
+          renderSectionHeader={({ section: { title } }): JSX.Element => (
+            <Text style={styles.section}>{title}</Text>
+          )}
         />
       </View>
     );

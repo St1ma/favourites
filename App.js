@@ -16,7 +16,7 @@ import MoviesScreen from './screens/Movies';
 import ImagesScreen from './screens/WikiImages';
 import FavouritesScreen from './screens/Favourites';
 
-import { store, persistor } from './redux';
+import { store, persistor } from './store';
 
 const Stack = createStackNavigator();
 
