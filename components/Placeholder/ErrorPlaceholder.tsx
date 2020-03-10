@@ -14,8 +14,10 @@ export default ({ onPress }: Props): JSX.Element => (
     <Text style={styles.title}>Oops!</Text>
     <Text style={styles.subtitle}>Something went wrong</Text>
 
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonLabel}>Retry</Text>
-    </TouchableOpacity>
+    {onPress && (
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.buttonLabel}>Retry</Text>
+      </TouchableOpacity>
+    )}
   </View>
 );

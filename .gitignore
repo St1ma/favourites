@@ -18,3 +18,5 @@ web-report/
 .DS_Store
 
 config.json
+
+coverage/

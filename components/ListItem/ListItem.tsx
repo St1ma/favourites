@@ -16,7 +16,7 @@ const styles = stylesGenerator();
 
 interface Props {
   data: WikiItem|MovieItem;
-  type: 'wiki'|'movie',
+  type: 'wiki'|'movie';
   addFav: Function;
   removeFav: Function;
 }
